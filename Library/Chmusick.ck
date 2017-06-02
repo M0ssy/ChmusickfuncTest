@@ -1,7 +1,7 @@
 public class Chmusick extends Chubgraph {
 
     8 => int Division;
-    130 => static float TEMPO;
+    133 => static float TEMPO;
 
     4 => static int MEASURE;
     2 => static int CYCLES;
@@ -363,6 +363,16 @@ public class Chmusick extends Chubgraph {
         }
         return toReturn;
     }
+    public void play(SndBuf buffer)
+    {
+        buffer => Envelope envelope => outlet;
+            while(true)
+            {
+                  envelope.keyOn();
+                  0 => buffer.pos;
+                  buffer.samples()::samp => now;
+            }
+        }
     public void play(SndBuf buffer, int sample[], int mode)
     {
         buffer => Envelope envelope => outlet;
@@ -450,6 +460,7 @@ public class Chmusick extends Chubgraph {
             }
         }
     }
+
     public void play(SndBuf buffer, int sample[]){
         play(buffer, sample,0);
     }

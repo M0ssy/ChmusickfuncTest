@@ -7,42 +7,42 @@
 //
 
 
-public class FMSynth extends SoundObject
+public class FMSynth
 {
     SinOsc modulator => ADSR envelope => SinOsc carrier => Envelope env => Gain Normalize => outlet;
 
     0.08 => Normalize.gain; //don't change this
-    
+
     SinOsc carrier2;
     8 => float C2f;
     carrier.freq() * C2f => carrier2.freq;
     2 => carrier2.sync;
-    
+
     SinOsc modulator2;
     0.2 => float M2f;
-    carrier.freq() * M2f => modulator2.freq; 
+    carrier.freq() * M2f => modulator2.freq;
     2 => modulator2.gain;
-    
+
     2 => carrier.sync;
     1 => modulator.gain;
-    
+
     3 => float NUM;
     2 => float DEN;
-    
+
     (NUM/DEN) => float mf;
     carrier.freq() * mf => modulator.freq;
-    
+
     10::ms => dur A;
     8::ms => dur D;
     0.5 => float S;
     5::ms => dur R;
-    
+
     envelope.set(A, D, S, R);
-    
+
     8 => int Division;
-    
+
     [60,0,0,0] @=> int Notes[];
-    
+
     public int subdivision(int div)
     {
         div => Division;
@@ -55,13 +55,13 @@ public class FMSynth extends SoundObject
     public int[] setNotes(int notes[])
     {
         notes @=> Notes;
-        return Notes; 
+        return Notes;
     }
     public int[] setNotes()
     {
         return Notes;
     }
-    
+
     public dur attack(dur attacK)
     {
         attacK => A;
@@ -164,7 +164,7 @@ public class FMSynth extends SoundObject
         return carrier.sync();
     }
     public float c2freq(float c2f)
-    {   
+    {
         c2f => C2f;
         return carrier2.freq();
     }
